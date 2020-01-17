@@ -10,7 +10,7 @@
 	<title>Daniela Shop</title>
 	<style>
 		#phonenumber{
-
+/*여기에 #phonenumber 선언해야 script에 있는 유효성 체크가 정상 작동*/
 		}
 		.outerContainer{
 			margin: auto;
@@ -76,7 +76,7 @@
 				alert('휴대폰번호를 입력해주세요');				
 			} else if (!OK){ 
 			$('#phonenumber').focus();
-			alert('올바른 전화번호를 입력하세요(Ex. 010-1234-5678)');	
+			alert('올바른 휴대폰번호를 입력하세요(Ex. 010-1234-5678)');	
 			} else {
 				alert('주문에 성공하였습니다☆')
 			}			
@@ -86,7 +86,7 @@
 		var OK = regTel.test(phonenumber.value);
 		if (!OK){ 
 			$('#phonenumber').focus();
-			alert('올바른 전화번호를 입력하세요(Ex. 010-1234-5678)');
+			alert('올바른 휴대폰번호를 입력하세요(Ex. 010-1234-5678)');
 		}
 	}
 </script>
@@ -141,7 +141,7 @@
 					<div class="form-group row">
 						<label for="phonenumber" class="col-sm-3 col-form-label">휴대폰번호</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="phonenumber" placeholder="ex.010-1234-5678" onchange="telCheck()">
+							<input type="text" class="form-control" id="phonenumber" placeholder="Ex. 010-1234-5678" onchange="telCheck()">
 						</div>
 					</div>
 				</form>
