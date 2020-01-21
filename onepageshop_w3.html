@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<title>Daniela Shop</title>
+	<style>
+		#phonenumber{}
+		.outerContainer{
+			max-width: 550px;
+			margin: auto;
+			padding: 25px;
+		}
+		.innerContainer{
+			max-width: 500px;			
+			border: 5px solid #f4f4f4;
+			padding: 30px;
+			margin: auto;
+			display: flex;
+			flex-direction: column;
+			/*flex-wrap: wrap;*/
+			justify-content: space-around;
+			align-content: space-around;
+		}	
+		.itemTitle{
+			display:flex;
+			flex-direction: row;
+			align-items: baseline;
+			justify-content: flex-start;
+		}
+		.orderButton{
+			width:50%;
+			margin-top:15px;
+		}
+		.priceText{
+			padding-left: 20px;
+		}
+		.itemImage{
+			width:100%;
+		}
+
+		h4{
+			margin: 30px;
+			text-align: center;
+		}
+		table{
+			text-align: center;
+			margin: auto;
+			width: 100%;
+		}
+		
+		@media (max-width:550px){
+			.innerContainer{
+				font-size: 3.5vw;
+			}
+			table{
+				font-size: 3vw;
+			}				
+			.itemTitle > h1{
+				font-size: 6.5vw;
+			}
+		}				
+
+
+	</style>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			orderListing();
+		});
+		function orderListing() {
+			$.ajax({
+				type: "GET",
+				url: "http://spartacodingclub.shop/order",
+				data: {},
+          // success: function(response){
+          // 	console.log(response)
+          // }
+          success: function(response){
+          	let rows = response["orders"]
+          	for (let i = 0; i < rows.length; i++) {
+          		let name = rows[i]['name'];
+          		let count = rows[i]['count'];
+          		let address = rows[i]['address'];
+          		let phone = rows[i]['phone'];
+          		let temp_table = '';
+          		temp_table = '<tr>\
+          		<td>'+name+'</td>\
+          		<td>'+count+'</td>\
+          		<td>'+address+'</td>\
+          		<td>'+phone+'</td>\
+          		</tr>'
+          		$('#orderList').append(temp_table);
+          	}
+          }
+      })
+		}
+	</script>
+
+	<script type="text/javascript">	
+		function infoCheck () {
+			var regTel = /^(01[016789]{1}|070|02|0[3-9]{1}[0-9]{1})-[0-9]{3,4}-[0-9]{4}$/;			
+			var OK = regTel.test(phonenumber.value);
+			if ($('#customerName').val()=='') {
+				$('#customerName').focus();
+				alert('성함을 입력해주세요');
+			} else if ($('#amount').val()=='') {
+				$('#amount').focus();
+				alert('수량을 선택해주세요');				
+			} else if ($('#address').val()=='') {
+				$('#address').focus();
+				alert('주소를 입력해주세요');				
+			} else if ($('#phonenumber').val()=='') {
+				$('#phonenumber').focus();
+				alert('휴대폰번호를 입력해주세요');				
+			} else if (!OK){ 
+				$('#phonenumber').focus();
+				alert('올바른 휴대폰번호를 입력하세요(Ex. 010-1234-5678)');	
+			} else {
+				alert('주문에 성공하였습니다☆')
+			}			
+		}
+		function telCheck(){
+			var regTel = /^(01[016789]{1}|070|02|0[3-9]{1}[0-9]{1})-[0-9]{3,4}-[0-9]{4}$/;			
+			var OK = regTel.test(phonenumber.value);
+			if (!OK){ 
+				$('#phonenumber').focus();
+				alert('올바른 휴대폰번호를 입력하세요(Ex. 010-1234-5678)');
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="outerContainer">
+		<div class="innerContainer">
+			<div>
+				<img src = "http://leatherbagstage.com/wp-content/uploads/2017/05/Fibreno-Leather-Goods_Fibreno-Bag-in-different-colours-1080x720.jpg" class="itemImage">
+			</div>
+			<div class="itemTitle">
+				<h1>Fibreno Bag</h1>
+				<span class="priceText">가격:54,900원/개</span>
+			</div>
+			<div>
+				<p>
+					삼청동 공방에서 만들어진 디자이너 브랜드 가죽 핸드백입니다. 여자친구 선물로 안성맞춤! 부담없이 선물해보세요. 이 텍스트가 길어지면 어떨까요?
+				</p>
+			</div>
+			<div>
+				<form>
+					<div class="form-group row">
+						<label for="customerName" class="col-sm-3 col-form-label">주문자 성함</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="customerName">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="amount" class="col-sm-3 col-form-label">수량</label>
+						<div class="col-sm-9">
+							<select name="number" class="form-control" id="amount">
+								<option value="">--수량을 선택하세요--</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="address" class="col-sm-3 col-form-label">주소</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="address">
+						</div>
+					</div>		
+					<div class="form-group row">
+						<label for="phonenumber" class="col-sm-3 col-form-label">휴대폰번호</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="phonenumber" placeholder="Ex. 010-1234-5678" onchange="telCheck()">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div>
+				<center>
+					<button id="order" type="button" class="btn btn-danger orderButton" data-toggle="button" aria-pressed="false" autocomplete="off" onclick="infoCheck()">
+						주문하기
+					</button>			
+				</center>
+			</div>
+			
+
+		</div>
+		<div>
+			<h4>
+				Order List
+			</h4>
+			<table class='table table-hover table-striped'>
+				<col width="20%">
+				<col width="15%">
+				<col width="35%">
+				<col width="30%">
+				<thead>
+					<tr>
+						<th>이름</th>
+						<th>수량</th>
+						<th>주소</th>
+						<th>휴대폰번호</th>
+					</tr>
+				</thead>
+				<tbody id="orderList" class="orderTable">
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
